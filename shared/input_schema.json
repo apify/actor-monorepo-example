@@ -1,0 +1,17 @@
+{
+    "title": "Actor message",
+    "description": "The actor message",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "message": {
+            "title": "message",
+            "type": "string",
+            "description": "Message to be printed",
+            "editor": "textfield"
+        }
+    },
+    "required": [
+        "message"
+    ]
+}

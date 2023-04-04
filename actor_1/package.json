@@ -1,0 +1,13 @@
+{
+    "name": "testing-monorepo-actor-1",
+    "version": "0.0.1",
+    "type": "module",
+    "description": "This is an example of an Apify actor using shared code.",
+    "dependencies": {
+        "apify": "^3.0.0"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "start": "node main.js"
+    }
+}
