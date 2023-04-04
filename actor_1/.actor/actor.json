@@ -1,0 +1,11 @@
+{
+    "actorSpecification": 1,
+    "name": "testing-monorepo-actor-1",
+    "title": "Testing monorepo actor 1",
+    "description": "This actor loads its code and input schema from a shared package.",
+    "version": "0.0",
+    "dockerContextDir": "../..",
+    "input": "../../shared/input_schema.json",
+    "readme": "../../shared/README.md",
+    "dockerfile": "./Dockerfile"
+}
