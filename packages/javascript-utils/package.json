@@ -1,0 +1,10 @@
+{
+    "name": "@packages/javascript-utils",
+    "version": "1.0.0",
+    "type": "module",
+    "private": true,
+    "main": "src/index.js",
+    "dependencies": {
+        "@apify/log": "^2.2.18"
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "name": "apify-actor-monorepo",
+    "description": "Template for setting up an Actor monorepo, including TypeScript actors",
+    "version": "1.0.0",
+    "type": "module",
+    "private": true,
+    "workspaces": [
+        "actors/*",
+        "packages/*"
+    ],
+    "devDependencies": {
+        "@apify/tsconfig": "^0.1.0",
+        "ts-node": "~10.9.1",
+        "tsconfig-paths": "~4.2.0"
+    }
+}

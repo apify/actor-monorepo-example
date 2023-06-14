@@ -1,0 +1,11 @@
+{
+    "actorSpecification": 1,
+    "name": "example-monorepo-actor-javascript",
+    "title": "Example monorepo actor written in JavaScript",
+    "description": "This is an example JavaScript Actor in a monorepo setup.",
+    "version": "0.0",
+    "dockerContextDir": "../../..",
+    "input": "../../../shared/input_schema.json",
+    "readme": "./README.md",
+    "dockerfile": "./Dockerfile"
+}

@@ -1,17 +1,15 @@
 {
-    "title": "Actor message",
-    "description": "The actor message",
+    "title": "Shared Actor input schema",
+    "description": "This is a shared Actor input schema",
     "type": "object",
     "schemaVersion": 1,
     "properties": {
         "message": {
-            "title": "message",
+            "title": "Message",
             "type": "string",
-            "description": "Message to be printed",
+            "description": "Actor message",
             "editor": "textfield"
         }
     },
-    "required": [
-        "message"
-    ]
+    "required": []
 }

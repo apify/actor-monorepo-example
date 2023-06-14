@@ -1,0 +1,14 @@
+{
+    "name": "@actors/javascript-actor",
+    "description": "Example JavaScript actor in a monorepo",
+    "version": "1.0.0",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "start": "node src/index.js"
+    },
+    "dependencies": {
+        "@packages/javascript-utils": "*",
+        "apify": "^3.1.7"
+    }
+}
