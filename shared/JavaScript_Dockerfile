@@ -1,10 +1,11 @@
 FROM apify/actor-node:16
+ARG ACTOR_PATH_IN_DOCKER_CONTEXT
 
 # Copy root package*.json
 COPY package*.json ./
 
 # Copy package.jsons of all used workspace members
-COPY actors/javascript-actor/package*.json actors/javascript-actor/
+COPY "${ACTOR_PATH_IN_DOCKER_CONTEXT}/package*.json" "${ACTOR_PATH_IN_DOCKER_CONTEXT}/"
 COPY packages/javascript-utils/package*.json packages/javascript-utils/
 
 
@@ -22,8 +23,9 @@ RUN npm --quiet set progress=false \
     && rm -r ~/.npm
 
 # Copy the rest of the source files.
-COPY actors/javascript-actor actors/javascript-actor/
+COPY "${ACTOR_PATH_IN_DOCKER_CONTEXT}" "./${ACTOR_PATH_IN_DOCKER_CONTEXT}"
 COPY packages packages/
 
 # Run the actor's start command when running this image
-CMD npm run -w actors/javascript-actor start
+ENV ACTOR_PATH_IN_DOCKER_CONTEXT="${ACTOR_PATH_IN_DOCKER_CONTEXT}"
+CMD npm run -w "${ACTOR_PATH_IN_DOCKER_CONTEXT}" start
