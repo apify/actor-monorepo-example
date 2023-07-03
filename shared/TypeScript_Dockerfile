@@ -1,12 +1,14 @@
 # Build the TypeScript code in a separate stage, to reduce the size of the final image.
 FROM apify/actor-node:16 AS builder
+ARG ACTOR_PATH_IN_DOCKER_CONTEXT
+
 WORKDIR /app
 
 # Copy root package*.json
 COPY package*.json ./
 
 # Copy package.jsons of all used workspace members
-COPY actors/typescript-actor/package*.json actors/typescript-actor/
+COPY "${ACTOR_PATH_IN_DOCKER_CONTEXT}/package*.json" "${ACTOR_PATH_IN_DOCKER_CONTEXT}/"
 COPY packages/javascript-utils/package*.json packages/javascript-utils/
 COPY packages/typescript-utils/package*.json packages/typescript-utils/
 
@@ -14,23 +16,24 @@ COPY packages/typescript-utils/package*.json packages/typescript-utils/
 RUN npm install --include=dev --audit=false
 
 # Next, copy the rest of the source files.
-COPY actors/typescript-actor actors/typescript-actor/
+COPY "${ACTOR_PATH_IN_DOCKER_CONTEXT}" "./${ACTOR_PATH_IN_DOCKER_CONTEXT}"
 COPY packages packages/
 COPY tsconfig.build.json ./
 
 # Build the TypeScript libraries
-RUN npm run -w actors/typescript-actor build
+RUN npm run -w "${ACTOR_PATH_IN_DOCKER_CONTEXT}" build
 
 
 
 # Create the final image, only with compiled code and production dependencies.
 FROM apify/actor-node:16
+ARG ACTOR_PATH_IN_DOCKER_CONTEXT
 
 # Copy root package*.json
 COPY package*.json ./
 
 # Copy package.jsons of all workspace members
-COPY actors/typescript-actor/package*.json actors/typescript-actor/
+COPY "${ACTOR_PATH_IN_DOCKER_CONTEXT}/package*.json" "${ACTOR_PATH_IN_DOCKER_CONTEXT}/"
 COPY packages/javascript-utils/package*.json packages/javascript-utils/
 COPY packages/typescript-utils/package*.json packages/typescript-utils/
 
@@ -48,12 +51,13 @@ RUN npm --quiet set progress=false \
     && rm -r ~/.npm
 
 # Copy the rest of the source files.
-COPY actors/typescript-actor actors/typescript-actor/
+COPY "${ACTOR_PATH_IN_DOCKER_CONTEXT}" "./${ACTOR_PATH_IN_DOCKER_CONTEXT}"
 COPY packages packages/
 
 # Copy built JS files from the `builder` stage
-COPY --from=builder /app/actors/typescript-actor/dist actors/typescript-actor/dist
+COPY --from=builder "/app/${ACTOR_PATH_IN_DOCKER_CONTEXT}/dist" "${ACTOR_PATH_IN_DOCKER_CONTEXT}/dist"
 COPY --from=builder /app/packages/typescript-utils/dist packages/typescript-utils/dist
 
 # Run the actor's start command when running this image
-CMD npm run -w actors/typescript-actor start:prod
+ENV ACTOR_PATH_IN_DOCKER_CONTEXT="${ACTOR_PATH_IN_DOCKER_CONTEXT}"
+CMD npm run -w "${ACTOR_PATH_IN_DOCKER_CONTEXT}" start:prod
