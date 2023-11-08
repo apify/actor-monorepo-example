@@ -5,8 +5,8 @@
     "type": "module",
     "private": true,
     "workspaces": [
-        "actors/*",
-        "packages/*"
+        "actors/**",
+        "packages/**"
     ],
     "devDependencies": {
         "@apify/tsconfig": "^0.1.0",
