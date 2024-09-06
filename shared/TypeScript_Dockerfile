@@ -1,5 +1,5 @@
 # Build the TypeScript code in a separate stage, to reduce the size of the final image.
-FROM apify/actor-node:16 AS builder
+FROM apify/actor-node:20 AS builder
 ARG ACTOR_PATH_IN_DOCKER_CONTEXT
 
 WORKDIR /app
@@ -26,7 +26,7 @@ RUN npm run -w "${ACTOR_PATH_IN_DOCKER_CONTEXT}" build
 
 
 # Create the final image, only with compiled code and production dependencies.
-FROM apify/actor-node:16
+FROM apify/actor-node:20
 ARG ACTOR_PATH_IN_DOCKER_CONTEXT
 
 # Copy root package*.json
